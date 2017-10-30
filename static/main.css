@@ -1,0 +1,50 @@
+*{
+    margin:0;
+    padding:0
+}
+html{
+    background: #2E3441
+}
+body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #A2BF8A;
+    background-color:#2E3441;
+}
+.output{
+    display: block;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width:100%;
+}
+input{
+    width: calc(100% - 20px);
+    padding: 10px;
+    background-color: #3B4253;
+    color: #FFF;
+    border:none;
+    position:relative;
+}
+input:focus{
+    color:#FFF;
+    outline:none;
+    border-top:1px solid #3B4253;
+    background-color:transparent;
+}
+div#out{
+    padding:10px;
+}
+p.op{
+    margin-bottom:5px;
+}
+p.red{
+    background-color:#C16069;
+    color:#2E3441;
+}
+/*p.error{
+    color:#EDCC87;
+}
+p.input{
+    color:#B58DAE;
+}*/
