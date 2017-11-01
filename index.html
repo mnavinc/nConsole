@@ -17,6 +17,20 @@
         <p class="help"><i class="fa fa-lg fa-bell"></i> Use "help" to show sample commands or "list" to list out all commands.</p>
         <div id="out">
         </div>
-        <div class="output"><input type="text" id="in" tabindex="0" placeholder="Type your command:" autofocus/></div>
+        <div class="output">
+            <input type="text" id="in" tabindex="0" placeholder="Type your command:" autofocus list="commandList"/>
+            <datalist id="commandList">
+                <option value="clear" />
+                <option value="date" />
+                <option value="help" />
+                <option value="history" />
+                <option value="list" />
+                <option value="location" />
+                <option value="theme dark" />
+                <option value="theme light" />
+                <option value="version" />
+                <option value="wish" />
+            </datalist>
+        </div>
     </body>
 </html>
