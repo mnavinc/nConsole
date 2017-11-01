@@ -3,13 +3,32 @@
     padding:0
 }
 html{
-    background: #2E3441
+    background: #2E3441;
+    height:100%;
 }
 body{
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     color: #A2BF8A;
-    background-color:#2E3441;
+    width:100%;
+    min-height: calc(100% - 40px);
+    overflow-x:hidden;
+}
+body.dark{
+    background-color:#2E3441; 
+}
+body.light{
+    background-color:#FFF; 
+}
+body.light input{
+    background-color:#E2E3E5; 
+}
+body.light input:focus{
+    color:#000;
+    background-color:#FFF;
+}
+body.light p.red{
+    color:#FFF;
 }
 .output{
     display: block;
@@ -30,21 +49,29 @@ input:focus{
     color:#FFF;
     outline:none;
     border-top:1px solid #3B4253;
-    background-color:transparent;
+    background-color:#2E3441;
 }
 div#out{
-    padding:10px;
+    padding:5px;
 }
-p.op{
-    margin-bottom:5px;
+p {
+    margin-bottom: 5px;
+    padding: 5px;
+    padding-left: 30px;
+    position: relative;
+    display: block;
+}
+p i.fa {
+    margin-right: 5px;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+p.help {
+    padding-left: 30px;
+    top:5px;
 }
 p.red{
     background-color:#C16069;
     color:#2E3441;
 }
-/*p.error{
-    color:#EDCC87;
-}
-p.input{
-    color:#B58DAE;
-}*/

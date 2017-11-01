@@ -1,4 +1,5 @@
         YUI().use("node", function(Y) {
+            
 
             var COMMANDS = [
                 {
@@ -7,7 +8,7 @@
                 },
 
                 {
-                    name: "greet",
+                    name: "wish",
                     handler: function(args) {
                         outputToConsole("Hello " + args[0] + ", welcome to Console.");
                     }
@@ -25,20 +26,62 @@
                     }
                 },
                 {
-                    name: "isOnline",
-                    handler: function(args) {
-                        outputToConsole("online: " + "\"" + navigator.onLine + "\"");
-                    }
-                },
-                {
                     name: "location",
                     handler: getLocation
                 },
+                {
+                    name: "clear",
+                    handler: clear
+                },
+                {
+                    name: "history",
+                    handler: history
+                },
+                {
+                    name: "theme",
+                    handler: theme
+                },
+                {
+                    name: "list",
+                    handler: function() {
+                        outputToConsole("clear"
+                         + "<br/>" + "date"
+                          + "<br/>" + "theme: dark/light"
+                           + "<br/>" + "history");
+                    }
+                },
+                {
+                    name: "help",
+                    handler: function() {
+                        outputToConsole("You can use commands like" + "<br/>" + "clear: clear all the logs."
+                         + "<br/>" + "date: displays todays date with time."
+                          + "<br/>" + "theme: change theme dark/light"
+                           + "<br/>" + "list: list all commands");
+                    }
+                }
 
             ];
 
+            var cmds = document.getElementById('in');
+            var inputArray = [];
+
+            function storeInput() {
+                inputArray.push(cmds.value);
+                console.log(inputArray);
+            };
+
             function doStuff(args) {
                 outputToConsole("I'll just return the args: " + args);
+            }
+
+            function theme(args) {
+                if (document.body.className == args){
+                    error("Same theme");  
+                }
+                else{
+                    document.body.className = args;
+                    outputToConsole("Changed to " + args[0] + " " + "theme");
+                }
             }
 
             function processCommand() {
@@ -60,6 +103,20 @@
 
             }
 
+            function clear() {
+                inputArray = [];
+                console.log(inputArray);
+                clearBody();
+            }
+            function history() {
+                outputToConsole(inputArray);
+                console.log(inputArray);
+            }
+            function clearBody() {
+                var pTags = document.getElementById("out");
+                pTags.innerHTML = '';
+            }
+
             function getLocation() {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(showPosition);
@@ -73,12 +130,12 @@
             }
 
             function outputToConsole(text) {
-                var p = Y.Node.create("<p class=\"op\">" + "> " + text + "</p>");
+                var p = Y.Node.create("<p class=\"op\">" + "<i class=\"fa fa-lg fa-check\">" + "</i>" + text + "</p>");
                 Y.one("#out").append(p);
                 p.scrollIntoView();
             }
             function error(text) {
-                var p = Y.Node.create("<p class=\"op red\">" + "> " + text + "</p>");
+                var p = Y.Node.create("<p class=\"op red\">" + "<i class=\"fa fa-lg fa-close\">" + "</i>" + text + "</p>");
                 Y.one("#out").append(p);
                 p.scrollIntoView();
             }
@@ -88,6 +145,7 @@
                 Y.one("#in").on("keydown", function(e) {
                     if (e.charCode === 13) {
                         processCommand();
+                        storeInput();
                     }
                     // if (e.charCode === 38 || e.charCode === 40) {
                     //     e.preventDefault();
