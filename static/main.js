@@ -3,11 +3,6 @@
 
             var COMMANDS = [
                 {
-                    name: "do_stuff",
-                    handler: doStuff
-                },
-
-                {
                     name: "wish",
                     handler: function(args) {
                         outputToConsole("Hello " + args[0] + ", welcome to Console.");
@@ -42,21 +37,14 @@
                     handler: theme
                 },
                 {
-                    name: "list",
-                    handler: function() {
-                        outputToConsole("clear"
-                         + "<br/>" + "date"
-                          + "<br/>" + "theme: dark/light"
-                           + "<br/>" + "history");
-                    }
-                },
-                {
                     name: "help",
                     handler: function() {
-                        outputToConsole("You can use commands like" + "<br/>" + "clear: clear all the logs."
-                         + "<br/>" + "date: displays todays date with time."
-                          + "<br/>" + "theme: change theme dark/light"
-                           + "<br/>" + "list: list all commands");
+                        outputToConsole("You can use commands like" + "<br/>" + "clear" + " - clear all the logs"
+                         + "<br/>" + "date" + " - shows the current date"
+                          + "<br/>" + "theme: [dark/light]" + " - changes console theme"
+                           + "<br/>" + "history" + " - shows the log of inputs"
+                            + "<br/>" + "location" + " - gives your geographical location"
+                             + "<br/>" + "version" + " - gives you the details of the app you are using");
                     }
                 }
 
@@ -68,42 +56,32 @@
             function clear() {
                 inputArray = [];
                 clearBody();
-                console.log(inputArray);
+                //console.log(inputArray);
             }
+
             function history() {
-                console.table(inputArray);
+                //console.table(inputArray);
                 var content="<b>History :</b><br/>";
                 for(var i = 0; i < inputArray.length; i++) {
                     content +=inputArray[i]+"<br/>";
                 }
                 outputToConsole(content);
             }
+
             function clearBody() {
                 var pTags = document.getElementById("out");
                 pTags.innerHTML = '';
             }
 
-            function doStuff(args) {
-                outputToConsole("I'll just return the args: " + args);
-            }
-
-            // function prevCommands() {
-            //     for(var i = 0; i < inputArray.length; i++) {
-            //         document.getElementById('in').value = inputArray[i];
-            //     }
-            // }
-
-
             function theme(args) {
                 if (document.body.className == args){
-                    error("theme already applied");  
+                    error(args[0] + " theme is already set");  
                 }
                 else{
                     document.body.className = args;
                     outputToConsole("Changed to " + args[0] + " " + "theme");
                 }
             }
-
             function processCommand() {
                 var inField = Y.one("#in");
                 var input = inField.get("value");
@@ -112,7 +90,7 @@
                 var args = parts.length > 1 ? parts.slice(1, parts.length) : [];
                 //console.log(command);
                 inputArray.push(input);
-                console.log(inputArray);
+                //console.log(inputArray);
                 inField.set("value", "");
 
                 for (var i = 0; i < COMMANDS.length; i++) {
@@ -122,7 +100,6 @@
                     }
                 }
                 error("Unsupported Command: " + command);
-
             }
 
             function getLocation() {
@@ -151,32 +128,28 @@
             Y.on("domready", function(e) {
                 Y.one("body").setStyle("paddingBottom", Y.one("#in").get("offsetHeight"));
                 Y.one("#in").on("keydown", function(e) {
-                    var i;
-                    var n = inputArray.length-1;
-                    var i = n;
-                    //console.log(inputArray);
-                    //console.log(e.charCode);
+
                     if (e.charCode === 13) {
                         e.preventDefault();
                         processCommand();
                     }
-                    if (e.charCode === 38) {
-                        let number = 0;
-                        if (i <= inputArray.length) {
-                            let val = inputArray[i];
-                            number = String(val);
-                            document.getElementById('in').value = number;
-                            i++;
-                        }
 
-                        //prevCommands();
-
-                        // var arrayLength = inputArray.length;
-                        // for (let i = 0; i < arrayLength; i++) {
-                        //     //alert(inputArray[i]);
-                        //     document.getElementById('in').value = inputArray[i];
-                        // }
+                    var i = 0,
+                        n = inputArray.length;
+                        //console.table(inputArray);
+                    if(e.charCode==38||e.charCode==40){
+                        if      (e.charCode==40) inputArray.push(inputArray.shift());
+                        else if (e.charCode==38) inputArray.unshift(inputArray.pop());
+                        document.getElementById('in').value = inputArray[i];
                     }
+                    // if (e.charCode === 38 || e.charCode === 40) {
+                    //     var i = 0,
+                    //     n = inputArray.length;
+
+                    //     i = (e.charCode==38? ++i : --i) <0? n-1 : i%n;
+                    //     document.getElementById('in').value = inputArray[i];
+                    //     e.preventDefault();
+                    // }
                 });
             });
         });
