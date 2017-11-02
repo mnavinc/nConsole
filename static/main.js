@@ -141,6 +141,7 @@
                         if      (e.charCode==40) inputArray.push(inputArray.shift());
                         else if (e.charCode==38) inputArray.unshift(inputArray.pop());
                         document.getElementById('in').value = inputArray[i];
+                        e.preventDefault();
                     }
                     // if (e.charCode === 38 || e.charCode === 40) {
                     //     var i = 0,
