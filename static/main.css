@@ -60,16 +60,20 @@ p {
     padding-left: 30px;
     position: relative;
     display: block;
+    border-radius:3px;
 }
 p i.fa {
     margin-right: 5px;
     position: absolute;
     left: 5px;
-    top: 5px;
+    top: 7px;
 }
 p.help {
-    padding-left: 30px;
+    padding-left: 35px;
     top:5px;
+}
+p.help i.fa{
+    left:10px;
 }
 p.red{
     background-color:#C16069;

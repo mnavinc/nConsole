@@ -16,13 +16,13 @@
                 {
                     name: "date",
                     handler: function(args) {
-                        outputToConsole("Now it is: " + "\"" + Date() + "\"");
+                        outputToConsole("Now it is: " + "<b>" + "\" " + Date() + " \"" + "</b>");
                     }
                 },
                 {
                     name: "version",
                     handler: function(args) {
-                        outputToConsole("App Version is: " + "\"" + navigator.appVersion + "\"");
+                        outputToConsole("App Version is: " + "<b>" + "\" " + navigator.appVersion + " \"" + "</b>");
                     }
                 },
                 {
@@ -62,27 +62,19 @@
 
             ];
 
-            var cmds = document.getElementById('in');
-            var inputArray = [];
-
-            function storeInput() {
-                //cmds.value = document.getElementById('in').value;
-                inputArray.push(cmds.value);
-                console.log(inputArray);
-            };
+            var input = document.getElementById('in');
+            var inputArray = new Array();
 
             function clear() {
                 inputArray = [];
-                console.log(inputArray);
                 clearBody();
+                console.log(inputArray);
             }
             function history() {
-                //cmds.value = "";
-                //outputToConsole(inputArray);
-                console.log(inputArray);
-                var content="<b>All Elements of the Arrays :</b><br>";
-                for(var i = 0; i < cmds.length; i++) {
-                    content +=cmds[i]+"<br>";
+                console.table(inputArray);
+                var content="<b>History :</b><br/>";
+                for(var i = 0; i < inputArray.length; i++) {
+                    content +=inputArray[i]+"<br/>";
                 }
                 outputToConsole(content);
             }
@@ -91,29 +83,20 @@
                 pTags.innerHTML = '';
             }
 
-            // var cmds = new Array();
-            // function insertInputValue(){
-            //     var inputValue = document.getElementById('in').value;
-            //     cmds[cmds.length]=inputValue;
-            //     console.log(cmds);
-            // }
-
-            // function showHistory() {
-            //   var content="<b>All Elements of the Arrays :</b><br>";
-            //   for(var i = 0; i < cmds.length; i++) {
-            //      content +=cmds[i]+"<br>";
-            //   }
-            //   outputToConsole(content);
-            // }
-
-
             function doStuff(args) {
                 outputToConsole("I'll just return the args: " + args);
             }
 
+            // function prevCommands() {
+            //     for(var i = 0; i < inputArray.length; i++) {
+            //         document.getElementById('in').value = inputArray[i];
+            //     }
+            // }
+
+
             function theme(args) {
                 if (document.body.className == args){
-                    error("Same theme");  
+                    error("theme already applied");  
                 }
                 else{
                     document.body.className = args;
@@ -128,6 +111,8 @@
                 var command = parts[0];
                 var args = parts.length > 1 ? parts.slice(1, parts.length) : [];
                 //console.log(command);
+                inputArray.push(input);
+                console.log(inputArray);
                 inField.set("value", "");
 
                 for (var i = 0; i < COMMANDS.length; i++) {
@@ -153,12 +138,12 @@
             }
 
             function outputToConsole(text) {
-                var p = Y.Node.create("<p class=\"op\">" + "<i class=\"fa fa-lg fa-check\">" + "</i>" + text + "</p>");
+                var p = Y.Node.create("<p class=\"op\">" + "<i class=\"fa fa-lg fa-check-circle\">" + "</i>" + text + "</p>");
                 Y.one("#out").append(p);
                 p.scrollIntoView();
             }
             function error(text) {
-                var p = Y.Node.create("<p class=\"op red\">" + "<i class=\"fa fa-lg fa-close\">" + "</i>" + text + "</p>");
+                var p = Y.Node.create("<p class=\"op red\">" + "<i class=\"fa fa-lg fa-exclamation-circle\">" + "</i>" + text + "</p>");
                 Y.one("#out").append(p);
                 p.scrollIntoView();
             }
@@ -166,15 +151,32 @@
             Y.on("domready", function(e) {
                 Y.one("body").setStyle("paddingBottom", Y.one("#in").get("offsetHeight"));
                 Y.one("#in").on("keydown", function(e) {
+                    var i;
+                    var n = inputArray.length-1;
+                    var i = n;
+                    //console.log(inputArray);
+                    //console.log(e.charCode);
                     if (e.charCode === 13) {
+                        e.preventDefault();
                         processCommand();
-                        storeInput();
-                        //insertInputValue();
                     }
-                    // if (e.charCode === 38 || e.charCode === 40) {
-                    //     e.preventDefault();
-                    //     console.history();
-                    // }
+                    if (e.charCode === 38) {
+                        let number = 0;
+                        if (i <= inputArray.length) {
+                            let val = inputArray[i];
+                            number = String(val);
+                            document.getElementById('in').value = number;
+                            i++;
+                        }
+
+                        //prevCommands();
+
+                        // var arrayLength = inputArray.length;
+                        // for (let i = 0; i < arrayLength; i++) {
+                        //     //alert(inputArray[i]);
+                        //     document.getElementById('in').value = inputArray[i];
+                        // }
+                    }
                 });
             });
         });

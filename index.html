@@ -14,22 +14,24 @@
         <script type="text/javascript" src="static/main.js"></script>
     </head>
     <body class="dark">
-        <p class="help"><i class="fa fa-lg fa-bell"></i> Use "help" to show sample commands or "list" to list out all commands.</p>
+        <p class="help"><i class="fa fa-lg fa-info-circle"></i> Use "help" to show sample commands or "list" to list out all commands.</p>
         <div id="out">
         </div>
         <form class="output">
             <input type="text" id="in" placeholder="Type your command:" autofocus list="commandList"/>
             <datalist id="commandList">
-                <option value="clear" />
-                <option value="date" />
-                <option value="help" />
-                <option value="history" />
-                <option value="list" />
-                <option value="location" />
-                <option value="theme dark" />
-                <option value="theme light" />
-                <option value="version" />
-                <option value="wish" />
+                <select>
+                    <option value="clear" />
+                    <option value="date" />
+                    <option value="help" />
+                    <option value="history" />
+                    <option value="list" />
+                    <option value="location" />
+                    <option value="theme dark" />
+                    <option value="theme light" />
+                    <option value="version" />
+                    <option value="wish" />
+                </select>
             </datalist>
         </form>
     </body>
