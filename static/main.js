@@ -66,9 +66,46 @@
             var inputArray = [];
 
             function storeInput() {
+                //cmds.value = document.getElementById('in').value;
                 inputArray.push(cmds.value);
                 console.log(inputArray);
             };
+
+            function clear() {
+                inputArray = [];
+                console.log(inputArray);
+                clearBody();
+            }
+            function history() {
+                //cmds.value = "";
+                //outputToConsole(inputArray);
+                console.log(inputArray);
+                var content="<b>All Elements of the Arrays :</b><br>";
+                for(var i = 0; i < cmds.length; i++) {
+                    content +=cmds[i]+"<br>";
+                }
+                outputToConsole(content);
+            }
+            function clearBody() {
+                var pTags = document.getElementById("out");
+                pTags.innerHTML = '';
+            }
+
+            // var cmds = new Array();
+            // function insertInputValue(){
+            //     var inputValue = document.getElementById('in').value;
+            //     cmds[cmds.length]=inputValue;
+            //     console.log(cmds);
+            // }
+
+            // function showHistory() {
+            //   var content="<b>All Elements of the Arrays :</b><br>";
+            //   for(var i = 0; i < cmds.length; i++) {
+            //      content +=cmds[i]+"<br>";
+            //   }
+            //   outputToConsole(content);
+            // }
+
 
             function doStuff(args) {
                 outputToConsole("I'll just return the args: " + args);
@@ -90,7 +127,7 @@
                 var parts = input.replace(/\s+/g, " ").split(" ");
                 var command = parts[0];
                 var args = parts.length > 1 ? parts.slice(1, parts.length) : [];
-                console.log(command);
+                //console.log(command);
                 inField.set("value", "");
 
                 for (var i = 0; i < COMMANDS.length; i++) {
@@ -101,20 +138,6 @@
                 }
                 error("Unsupported Command: " + command);
 
-            }
-
-            function clear() {
-                inputArray = [];
-                console.log(inputArray);
-                clearBody();
-            }
-            function history() {
-                outputToConsole(inputArray);
-                console.log(inputArray);
-            }
-            function clearBody() {
-                var pTags = document.getElementById("out");
-                pTags.innerHTML = '';
             }
 
             function getLocation() {
@@ -146,6 +169,7 @@
                     if (e.charCode === 13) {
                         processCommand();
                         storeInput();
+                        //insertInputValue();
                     }
                     // if (e.charCode === 38 || e.charCode === 40) {
                     //     e.preventDefault();
